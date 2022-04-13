@@ -73,6 +73,7 @@ export default function Home({ postsPagination }: HomeProps) {
             },
           };
         });
+
         setPosts([...posts, ...postsUpdated]);
         setNextPage(newPosts.next_page);
       });
