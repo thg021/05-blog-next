@@ -51,7 +51,7 @@ export default function Home({ postsPagination }: HomeProps) {
   const [nextPage, setNextPage] = useState(next_page);
   const [posts, setPosts] = useState<Post[]>(postsFormatted);
 
-  function handleNextPage(): Promise<void> {
+  function handleNextPage() {
     if (nextPage === null) return;
     fetch(nextPage)
       .then(response => response.json())
