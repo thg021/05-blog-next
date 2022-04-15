@@ -6,7 +6,6 @@ import { AiOutlineCalendar, AiOutlineUser } from 'react-icons/ai';
 import { format } from 'date-fns';
 
 import Prismic from '@prismicio/client';
-import { RichText } from 'prismic-dom';
 import { useState } from 'react';
 import { ptBR } from 'date-fns/locale';
 import { getPrismicClient } from '../services/prismic';
@@ -67,9 +66,9 @@ export default function Home({ postsPagination }: HomeProps) {
               }
             ),
             data: {
-              title: RichText.asText(post.data.title),
-              subtitle: RichText.asText(post.data.subtitle),
-              author: RichText.asText(post.data.author),
+              title: post.data.title,
+              subtitle: post.data.subtitle,
+              author: post.data.author,
             },
           };
         });
@@ -127,25 +126,16 @@ export const getStaticProps: GetStaticProps = async () => {
   );
 
   const { next_page } = postsResponse;
-  // console.log(JSON.stringify(postsResponse, null, 2));
+  // console.log('Backend: ', JSON.stringify(postsResponse, null, 2));
   // console.log(postsResponse);
   const posts: Post[] = postsResponse.results.map(post => {
     return {
       uid: post.uid,
       first_publication_date: post.first_publication_date,
       data: {
-        title:
-          typeof post.data.title === 'string'
-            ? post.data.title
-            : RichText.asText(post.data.title),
-        subtitle:
-          typeof post.data.subtitle === 'string'
-            ? post.data.subtitle
-            : RichText.asText(post.data.subtitle),
-        author:
-          typeof post.data.author === 'string'
-            ? post.data.author
-            : RichText.asText(post.data.author),
+        title: post.data.title,
+        subtitle: post.data.subtitle,
+        author: post.data.author,
       },
     };
   });
